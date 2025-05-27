@@ -68,5 +68,6 @@ namespace EmployeeApp.Web.Tests
             var viewResult = (ViewResult)result;
             Assert.IsType<DetailsVM>(viewResult.Model);
         }
+        
     }
 }
