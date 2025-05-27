@@ -5,6 +5,7 @@ using EmployeesApp.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using EmployeesApp.Web.Views;
 using EmployeesApp.Domain.Entities;
+using EmployeesApp.Web.Views.Employees;
 
 namespace EmployeeApp.Web.Tests
 {
@@ -57,9 +58,15 @@ namespace EmployeeApp.Web.Tests
         public void Details_ValidId_ReturnsViewResult()
         {
             var employeeService = new Mock<IEmployeeService>();
-            employeeService.Setup(e => e.GetById(1)).Returns()
 
+            employeeService.Setup(e => e.GetById(1)).Returns (new Employee { Name = "Adam B", Email="adam.b@gmail", Id = 1 });
+            var controller = new EmployeesController(employeeService.Object);
 
+            var result = controller.Details(1);
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+            var viewResult = (ViewResult)result;
+            Assert.IsType<DetailsVM>(viewResult.Model);
         }
     }
 }
